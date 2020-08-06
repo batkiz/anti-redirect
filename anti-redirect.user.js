@@ -4,7 +4,7 @@
 // @collaborator      Axetroy
 // @description       去除重定向, 支持谷歌/百度/搜狗/360/知乎/贴吧/简书/豆瓣/微博...
 // @version           2.15.2
-// @update            2020-06-07 06:07:32
+// @update            2020-08-06 16:27:59
 // @grant             GM_xmlhttpRequest
 // @include           *www.baidu.com*
 // @include           *tieba.baidu.com*
@@ -33,6 +33,7 @@
 // @include           *www.dogedoge.com*
 // @include           *51.ruyo.net*
 // @include           *steamcommunity.com*
+// @include           *mijisou.com*
 // @connect           *
 // @compatible        chrome  完美运行
 // @compatible        firefox  完美运行
@@ -53,290 +54,212 @@
 // 你的支持就是我更新的动力
 
 
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 __webpack_require__(1);
-var gm_http_1 = __webpack_require__(4);
-var app_1 = __webpack_require__(5);
-var google_1 = __webpack_require__(10);
-var google_gmail_1 = __webpack_require__(11);
-var google_docs_1 = __webpack_require__(12);
-var google_play_1 = __webpack_require__(13);
-var google_youtube_1 = __webpack_require__(14);
-var sogou_1 = __webpack_require__(15);
-var baidu_1 = __webpack_require__(16);
-var baidu_video_1 = __webpack_require__(17);
-var baidu_xueshu_1 = __webpack_require__(18);
-var baidu_tieba_1 = __webpack_require__(19);
-var zhihu_1 = __webpack_require__(20);
-var zhihu_zhuanlan_1 = __webpack_require__(21);
-var zhihu_daily_1 = __webpack_require__(22);
-var so_1 = __webpack_require__(23);
-var weibo_1 = __webpack_require__(24);
-var twitter_1 = __webpack_require__(25);
-var juejin_1 = __webpack_require__(26);
-var qq_mail_1 = __webpack_require__(27);
-var mozilla_1 = __webpack_require__(28);
-var jianshu_1 = __webpack_require__(29);
-var douban_1 = __webpack_require__(30);
-var pocket_1 = __webpack_require__(31);
-var dogedoge_1 = __webpack_require__(32);
-var ruyo_1 = __webpack_require__(33);
-var steam_1 = __webpack_require__(34);
-var app = new app_1.App();
-var isDebug = "production" !== "production";
+const gm_http_1 = __webpack_require__(2);
+const app_1 = __webpack_require__(3);
+const www_google_com_1 = __webpack_require__(8);
+const gmail_google_com_1 = __webpack_require__(9);
+const docs_google_com_1 = __webpack_require__(10);
+const play_google_com_1 = __webpack_require__(11);
+const www_youtube_com_1 = __webpack_require__(12);
+const www_sogou_com_1 = __webpack_require__(13);
+const www_baidu_com_1 = __webpack_require__(14);
+const video_baidu_com_1 = __webpack_require__(15);
+const xueshu_baidu_com_1 = __webpack_require__(16);
+const tieba_baidu_com_1 = __webpack_require__(17);
+const www_zhihu_com_1 = __webpack_require__(18);
+const zhuanlan_zhihu_com_1 = __webpack_require__(19);
+const daily_zhihu_com_1 = __webpack_require__(20);
+const www_so_com_1 = __webpack_require__(21);
+const weibo_com_1 = __webpack_require__(22);
+const twitter_com_1 = __webpack_require__(23);
+const juejin_com_1 = __webpack_require__(24);
+const mailqq_com_1 = __webpack_require__(25);
+const addons_mozilla_org_1 = __webpack_require__(26);
+const www_jianshu_com_1 = __webpack_require__(27);
+const www_douban_com_1 = __webpack_require__(28);
+const getpocket_com_1 = __webpack_require__(29);
+const www_dogedoge_com_1 = __webpack_require__(30);
+const _51_ruyo_net_1 = __webpack_require__(31);
+const steamcommunity_com_1 = __webpack_require__(32);
+const mijisou_com_1 = __webpack_require__(33);
+const app = new app_1.App();
+const isDebug = "production" !== "production";
 gm_http_1.default.setConfig({ debug: isDebug });
 app
-    .setConfig({ isDebug: isDebug })
+    .setConfig({ isDebug })
     .registerProvider([
     {
         // 测试地址: https://www.zhihu.com/question/25258775
         name: "知乎",
         test: /www\.zhihu\.com/,
-        provider: zhihu_1.ZhihuProvider
+        provider: www_zhihu_com_1.ZhihuProvider,
     },
     {
         // 测试地址: https://zhuanlan.zhihu.com/p/20549978
         name: "知乎专栏",
         test: /zhuanlan\.zhihu\.com/,
-        provider: zhihu_zhuanlan_1.ZhihuZhuanlanProvider
+        provider: zhuanlan_zhihu_com_1.ZhihuZhuanlanProvider,
     },
     {
         // 测试地址:
         name: "知乎日报",
         test: /daily\.zhihu\.com/,
-        provider: zhihu_daily_1.ZhihuDailyProvider
+        provider: daily_zhihu_com_1.ZhihuDailyProvider,
     },
     {
         name: "Google搜索",
         test: /\w+\.google\./,
-        provider: google_1.GoogleProvider
+        provider: www_google_com_1.GoogleProvider,
     },
     {
         // 测试地址: https://docs.google.com/spreadsheets/d/1TFcEXMcKrwoIAECIVyBU0GPoSmRqZ7A0VBvqeKYVSww/htmlview
         name: "Google Docs",
         test: /docs\.google\.com/,
-        provider: google_docs_1.GoogleDocsProvider
+        provider: docs_google_com_1.GoogleDocsProvider,
     },
     {
         name: "Gmail",
         test: /mail\.google\.com/,
-        provider: google_gmail_1.GmailProvider
+        provider: gmail_google_com_1.GmailProvider,
     },
     {
         // 测试地址: https://play.google.com/store/movies/details/%E7%A7%BB%E5%8B%95%E8%BF%B7%E5%AE%AE_%E6%AD%BB%E4%BA%A1%E8%A7%A3%E8%97%A5?id=YNy7gRqwtMk
         name: "Google Play",
         test: /play\.google\.com/,
-        provider: google_play_1.GooglePlayProvider
+        provider: play_google_com_1.GooglePlayProvider,
     },
     {
         // 测试地址: https://www.youtube.com/watch?v=XTXSRRSv1bY
         name: "Google Youtube",
         test: /www\.youtube\.com/,
-        provider: google_youtube_1.YoutubeProvider
+        provider: www_youtube_com_1.YoutubeProvider,
     },
     {
         // 测试地址: https://www.so.com/s?ie=utf-8&fr=none&src=360sou_newhome&q=chrome
         name: "360搜索",
         test: /www\.so\.com/,
-        provider: so_1.SoProvider
+        provider: www_so_com_1.SoProvider,
     },
     {
         name: "新浪微博",
         test: /\.weibo\.com/,
-        provider: weibo_1.WeboProvider
+        provider: weibo_com_1.WeboProvider,
     },
     {
         name: "Twitter",
         test: /twitter\.com/,
-        provider: twitter_1.TwitterProvider
+        provider: twitter_com_1.TwitterProvider,
     },
     {
         // 测试: http://www.sogou.com/web?query=chrome&_asf=www.sogou.com&_ast=&w=01019900&p=40040100&ie=utf8&from=index-nologin&s_from=index&sut=1527&sst0=1504347367611&lkt=0%2C0%2C0&sugsuv=00091651B48CA45F593B61A29B131405&sugtime=1504347367611
         name: "搜狗搜索",
         test: /www\.sogou\.com/,
-        provider: sogou_1.SoGouProvider
+        provider: www_sogou_com_1.SoGouProvider,
     },
     {
         // 测试: https://www.baidu.com/s?wd=chrome&rsv_spt=1&rsv_iqid=0xcb136237000ed40e&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baidulocal&rsv_enter=1&rsv_sug3=7&rsv_sug1=7&rsv_sug7=101&rsv_sug2=0&inputT=813&rsv_sug4=989&timestamp=1504349229266&rn=50&vf_bl=1
         name: "百度搜索",
         test: /www\.baidu\.com/,
-        provider: baidu_1.BaiduProvider
+        provider: www_baidu_com_1.BaiduProvider,
     },
     {
         // 测试: https://www.baidu.com/s?wd=chrome&pn=20&oq=chrome&tn=baiduhome_pg&ie=utf-8&usm=3&rsv_idx=2&rsv_pq=e043900d0000752d&rsv_t=6bb0UqEwp2Tle6TAMBDlU3Wg%2BSxoqvvOhZKyQgM%2BVQP8Gc54QZLhcDcj62eGfNG75aq5&rsv_page=1
         name: "百度视频",
         test: /v\.baidu\.com/,
-        provider: baidu_video_1.BaiduVideoProvider
+        provider: video_baidu_com_1.BaiduVideoProvider,
     },
     {
         // 测试: http://xueshu.baidu.com/s?wd=paperuri%3A%28ae4d6b5da05eca552dab05aeefb966e6%29&ie=utf-8&filter=sc_long_sign&sc_ks_para=q%3D%E2%80%9C%E4%BA%92%E8%81%94%E7%BD%91%2B%E5%81%A5%E5%BA%B7%E7%AE%A1%E7%90%86%E2%80%9D%E6%A8%A1%E5%BC%8F%E6%8E%A2%E8%AE%A8%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8&tn=SE_baiduxueshu_c1gjeupa
         name: "百度学术",
         test: /xueshu\.baidu\.com/,
-        provider: baidu_xueshu_1.BaiduXueshuProvider
+        provider: xueshu_baidu_com_1.BaiduXueshuProvider,
     },
     {
         // 测试地址: http://tieba.baidu.com/p/5300844180
         name: "百度贴吧",
         test: /tieba\.baidu\.com/,
-        provider: baidu_tieba_1.TiebaProvider
+        provider: tieba_baidu_com_1.TiebaProvider,
     },
     {
         // 测试地址: https://juejin.im/entry/59ac8fa551882524241a8802?utm_source=gold_browser_extension
         name: "掘金",
         test: /juejin\.im/,
-        provider: juejin_1.JuejinProvider
+        provider: juejin_com_1.JuejinProvider,
     },
     {
         name: "QQ邮箱",
         test: /mail\.qq\.com/,
-        provider: qq_mail_1.QQMailProvider
+        provider: mailqq_com_1.QQMailProvider,
     },
     {
         // 测试地址: https://addons.mozilla.org/zh-CN/firefox/addon/evernote-web-clipper/
         name: "Mozilla",
         test: /addons\.mozilla\.org/,
-        provider: mozilla_1.MozillaProvider
+        provider: addons_mozilla_org_1.MozillaProvider,
     },
     {
         // 测试地址: https://www.jianshu.com/p/979776ca44b8
         // https://www.jianshu.com/p/fc8abc65bbb2
         name: "简书",
         test: /www\.jianshu\.com/,
-        provider: jianshu_1.JianShuProvider
+        provider: www_jianshu_com_1.JianShuProvider,
     },
     {
         // 测试地址: https://www.douban.com/doulist/240962/
         // 测试地址: https://www.douban.com/search?cat=1002&q=%E9%BB%91%E9%95%9C
         name: "豆瓣",
         test: /douban\.com/,
-        provider: douban_1.DouBanProvider
+        provider: www_douban_com_1.DouBanProvider,
     },
     {
         // 测试地址: https://getpocket.com/a/recommended/
         // 需要登陆
         name: "Pocket",
         test: /getpocket\.com/,
-        provider: pocket_1.PocketProvider
+        provider: getpocket_com_1.PocketProvider,
     },
     {
         // 测试地址: https://www.dogedoge.com/results?q=chrome
         name: "DogeDoge",
         test: /www\.dogedoge\.com/,
-        provider: dogedoge_1.DogeDogeProvider
+        provider: www_dogedoge_com_1.DogeDogeProvider,
     },
     {
         // 测试地址: https://51.ruyo.net/15053.html
         name: "Ruyo",
         test: /51\.ruyo\.net/,
-        provider: ruyo_1.RuyoProvider
+        provider: _51_ruyo_net_1.RuyoProvider,
     },
     {
         // 测试地址: https://steamcommunity.com/sharedfiles/filedetails/?id=1311535531
         name: "Steam",
         test: /steamcommunity\.com/,
-        provider: steam_1.SteamProvider
-    }
+        provider: steamcommunity_com_1.SteamProvider,
+    },
+    {
+        // 测试地址: https://mijisou.com/?q=chrome&category_general=on&time_range=&language=zh-CN&pageno=1
+        name: "秘迹",
+        test: /mijisou\.com/,
+        provider: mijisou_com_1.MiJiProvider,
+    },
 ])
     .bootstrap();
 
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-/* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
+/*! *****************************************************************************
 Copyright (C) Microsoft. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
@@ -355,7 +278,7 @@ var Reflect;
     // Metadata Proposal
     // https://rbuckton.github.io/reflect-metadata/
     (function (factory) {
-        var root = typeof global === "object" ? global :
+        var root = typeof __webpack_require__.g === "object" ? __webpack_require__.g :
             typeof self === "object" ? self :
                 typeof this === "object" ? this :
                     Function("return this;")();
@@ -1468,227 +1391,10 @@ var Reflect;
     });
 })(Reflect || (Reflect = {}));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(3)))
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(true)
@@ -1700,7 +1406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+/******/ 	function __nested_webpack_require_535__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId]) {
@@ -1714,7 +1420,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_535__);
 /******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
@@ -1725,14 +1431,14 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
+/******/ 	__nested_webpack_require_535__.m = modules;
 /******/
 /******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
+/******/ 	__nested_webpack_require_535__.c = installedModules;
 /******/
 /******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 	__nested_webpack_require_535__.d = function(exports, name, getter) {
+/******/ 		if(!__nested_webpack_require_535__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, {
 /******/ 				configurable: false,
 /******/ 				enumerable: true,
@@ -1742,27 +1448,27 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
+/******/ 	__nested_webpack_require_535__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		__nested_webpack_require_535__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/ 	__nested_webpack_require_535__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__nested_webpack_require_535__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __nested_webpack_require_535__(__nested_webpack_require_535__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __nested_webpack_require_2812__) {
 
 "use strict";
 
@@ -1893,8 +1599,8 @@ exports.default = http;
 });
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 3 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1913,49 +1619,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.App = void 0;
-var utils_1 = __webpack_require__(6);
-var App = /** @class */ (function () {
-    function App() {
+const utils_1 = __webpack_require__(4);
+class App {
+    constructor() {
         this.provides = [];
         console.log("%c Anti-Redirect %c Copyright \xa9 2015-%s %s", 'font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:64px;color:#00bbee;-webkit-text-fill-color:#00bbee;-webkit-text-stroke: 1px #00bbee;', "font-size:12px;color:#999999;", new Date().getFullYear(), "\n" + "Author @Axetroy");
         console.log("[Anti Redirect]: 如果发现页面重定向未去除，欢迎反馈!");
-        console.log("%c[Anti Redirect]: \u652F\u4ED8\u5B9D\u641C\u7D22 \"%c511118132%c\" \u9886\u53D6\u7EA2\u5305\u652F\u6301\u4F5C\u8005!", "font-size: 12px;", "font-size: 16px;color: red", "font-size: 12px;");
+        console.log(`%c[Anti Redirect]: 支付宝搜索 "%c511118132%c" 领取红包支持作者!`, "font-size: 12px;", "font-size: 16px;color: red", "font-size: 12px;");
     }
     /**
      * A 标签是否匹配服务提供者
      * @param aElement
      * @param provider
      */
-    App.prototype.isMatchProvider = function (aElement, provider) {
+    isMatchProvider(aElement, provider) {
         if (aElement.getAttribute(utils_1.Marker.RedirectStatusDone)) {
             return false;
         }
@@ -1969,95 +1648,74 @@ var App = /** @class */ (function () {
             return provider.test;
         }
         return true;
-    };
+    }
     /**
      * 当鼠标移动到 A 标签上时
      * @param event
      */
-    App.prototype.onHover = function (event) {
-        var aElement = event.target;
+    onHover(event) {
+        const aElement = event.target;
         if (aElement.tagName !== "A") {
             return;
         }
         // trigger on hover handler
-        for (var _i = 0, _a = this.provides; _i < _a.length; _i++) {
-            var provider = _a[_i];
+        for (const provider of this.provides) {
             if (this.isMatchProvider(aElement, provider)) {
                 provider.resolve(aElement);
             }
         }
-    };
+    }
     /**
      * 当页面滚动时
      */
-    App.prototype.onScroll = function () {
+    onScroll() {
         // 筛选所有在可视区域内的A标签
-        var visibleElements = [].slice
+        const visibleElements = [].slice
             .call(document.querySelectorAll("a[href]"))
-            .filter(function (aElement) {
+            .filter((aElement) => {
             return (aElement.href.indexOf("http") > -1 &&
                 utils_1.isInView(aElement) &&
                 utils_1.getRedirect(aElement) <= 2);
         });
         // trigger scroll handler
-        for (var _i = 0, _a = this.provides; _i < _a.length; _i++) {
-            var provider = _a[_i];
-            for (var _b = 0, visibleElements_1 = visibleElements; _b < visibleElements_1.length; _b++) {
-                var aElement = visibleElements_1[_b];
+        for (const provider of this.provides) {
+            for (const aElement of visibleElements) {
                 if (this.isMatchProvider(aElement, provider)) {
                     provider.resolve(aElement);
                 }
             }
         }
-    };
+    }
     /**
      * 当页面准备就绪时，进行初始化动作
      */
-    App.prototype.pageOnReady = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _i, _a, provider;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _i = 0, _a = this.provides;
-                        _b.label = 1;
-                    case 1:
-                        if (!(_i < _a.length)) return [3 /*break*/, 5];
-                        provider = _a[_i];
-                        if (!provider.onInit) return [3 /*break*/, 3];
-                        return [4 /*yield*/, provider.onInit()];
-                    case 2:
-                        _b.sent();
-                        _b.label = 3;
-                    case 3:
-                        // 如果页面处于初始的状态，没有滚动过，则出发一次onScroll事件
-                        if (window.scrollY <= 0) {
-                            this.onScroll();
-                        }
-                        _b.label = 4;
-                    case 4:
-                        _i++;
-                        return [3 /*break*/, 1];
-                    case 5: return [2 /*return*/];
+    pageOnReady() {
+        return __awaiter(this, void 0, void 0, function* () {
+            for (const provider of this.provides) {
+                if (provider.onInit) {
+                    yield provider.onInit();
                 }
-            });
+                // 如果页面处于初始的状态，没有滚动过，则出发一次onScroll事件
+                if (window.scrollY <= 0) {
+                    this.onScroll();
+                }
+            }
         });
-    };
+    }
     /**
      * 设置配置
      * @param config
      */
-    App.prototype.setConfig = function (config) {
+    setConfig(config) {
         this.config = config;
         return this;
-    };
+    }
     /**
      * 注册服务提供者
      * @param providers
      */
-    App.prototype.registerProvider = function (providers) {
-        for (var _i = 0, providers_1 = providers; _i < providers_1.length; _i++) {
-            var provideConfig = providers_1[_i];
+    registerProvider(providers) {
+        for (const provideConfig of providers) {
             // test 如果是 boolean
             if (provideConfig.test === false) {
                 continue;
@@ -2072,43 +1730,42 @@ var App = /** @class */ (function () {
                 provideConfig.test() === false) {
                 continue;
             }
-            var provider = new provideConfig.provider();
+            const provider = new provideConfig.provider();
             provider.isDebug = this.config.isDebug;
             this.provides.push(provider);
-            console.info("[Anti-redirect]: \u52A0\u8F7D\u5F15\u64CE " + provideConfig.name);
+            console.info(`[Anti-redirect]: 加载引擎 ${provideConfig.name}`);
         }
         return this;
-    };
+    }
     /**
      * 启动应用
      */
-    App.prototype.bootstrap = function () {
+    bootstrap() {
         addEventListener("scroll", this.onScroll.bind(this));
         addEventListener("mousemove", this.onHover.bind(this));
         addEventListener("DOMContentLoaded", this.pageOnReady.bind(this));
-    };
-    __decorate([
-        utils_1.throttleDecorator(50)
-    ], App.prototype, "onHover", null);
-    __decorate([
-        utils_1.debounceDecorator(300)
-    ], App.prototype, "onScroll", null);
-    return App;
-}());
+    }
+}
+__decorate([
+    utils_1.throttleDecorator(50)
+], App.prototype, "onHover", null);
+__decorate([
+    utils_1.debounceDecorator(300)
+], App.prototype, "onScroll", null);
 exports.App = App;
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 4 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.antiRedirect = exports.decreaseRedirect = exports.increaseRedirect = exports.getRedirect = exports.isInView = exports.debounceDecorator = exports.throttleDecorator = exports.getText = exports.queryParser = exports.matchLinkFromUrl = exports.Marker = void 0;
-var throttle = __webpack_require__(7);
-var debounce = __webpack_require__(8);
-var inView = __webpack_require__(9);
+const throttle = __webpack_require__(5);
+const debounce = __webpack_require__(6);
+const inView = __webpack_require__(7);
 var Marker;
 (function (Marker) {
     Marker["RedirectCount"] = "redirect-count";
@@ -2121,11 +1778,11 @@ var Marker;
  * @returns {boolean}
  */
 function matchLinkFromUrl(aElement, tester) {
-    var matcher = tester.exec(aElement.href);
+    const matcher = tester.exec(aElement.href);
     if (!matcher || !matcher.length || !matcher[1]) {
         return "";
     }
-    var url = "";
+    let url = "";
     try {
         url = decodeURIComponent(matcher[1]);
     }
@@ -2135,18 +1792,18 @@ function matchLinkFromUrl(aElement, tester) {
     return url;
 }
 exports.matchLinkFromUrl = matchLinkFromUrl;
-var Query = /** @class */ (function () {
-    function Query(queryStr) {
+class Query {
+    constructor(queryStr) {
         this.queryStr = queryStr;
         this.object = {};
         this.object = this.toObject(queryStr.replace(/^\?+/, ""));
     }
-    Query.prototype.toObject = function (queryStr) {
-        var obj = {};
-        queryStr.split("&").forEach(function (item) {
-            var arr = item.split("=") || [];
-            var key = arr[0] || "";
-            var value = arr[1] || "";
+    toObject(queryStr) {
+        const obj = {};
+        queryStr.split("&").forEach(item => {
+            const arr = item.split("=") || [];
+            let key = arr[0] || "";
+            let value = arr[1] || "";
             try {
                 key = decodeURIComponent(arr[0] || "");
                 value = decodeURIComponent(arr[1] || "");
@@ -2159,19 +1816,18 @@ var Query = /** @class */ (function () {
             }
         });
         return obj;
-    };
-    Query.prototype.toString = function () {
-        var arr = [];
-        for (var key in this.object) {
+    }
+    toString() {
+        const arr = [];
+        for (const key in this.object) {
             if (this.object.hasOwnProperty(key)) {
-                var value = this.object[key];
+                const value = this.object[key];
                 arr.push(key + "=" + value);
             }
         }
         return arr.length ? "?" + arr.join("&") : "";
-    };
-    return Query;
-}());
+    }
+}
 function queryParser(queryString) {
     return new Query(queryString);
 }
@@ -2180,13 +1836,12 @@ function getText(htmlElement) {
     return (htmlElement.innerText || htmlElement.textContent).trim();
 }
 exports.getText = getText;
-function throttleDecorator(wait, options) {
-    if (options === void 0) { options = {}; }
-    return function (target, name, descriptor) {
+function throttleDecorator(wait, options = {}) {
+    return (target, name, descriptor) => {
         return {
             configurable: true,
             enumerable: descriptor.enumerable,
-            get: function () {
+            get() {
                 Object.defineProperty(this, name, {
                     configurable: true,
                     enumerable: descriptor.enumerable,
@@ -2198,13 +1853,12 @@ function throttleDecorator(wait, options) {
     };
 }
 exports.throttleDecorator = throttleDecorator;
-function debounceDecorator(wait, options) {
-    if (options === void 0) { options = {}; }
-    return function (target, name, descriptor) {
+function debounceDecorator(wait, options = {}) {
+    return (target, name, descriptor) => {
         return {
             configurable: true,
             enumerable: descriptor.enumerable,
-            get: function () {
+            get() {
                 Object.defineProperty(this, name, {
                     configurable: true,
                     enumerable: descriptor.enumerable,
@@ -2225,12 +1879,12 @@ function getRedirect(aElement) {
 }
 exports.getRedirect = getRedirect;
 function increaseRedirect(aElement) {
-    var num = getRedirect(aElement);
+    const num = getRedirect(aElement);
     aElement.setAttribute(Marker.RedirectCount, num + 1 + "");
 }
 exports.increaseRedirect = increaseRedirect;
 function decreaseRedirect(aElement) {
-    var num = getRedirect(aElement);
+    const num = getRedirect(aElement);
     if (num > 0) {
         aElement.setAttribute(Marker.RedirectCount, num - 1 + "");
     }
@@ -2242,10 +1896,9 @@ exports.decreaseRedirect = decreaseRedirect;
  * @param realUrl 真实的地址
  * @param options
  */
-function antiRedirect(aElement, realUrl, options) {
-    if (options === void 0) { options = {
-        debug: "production" !== "production"
-    }; }
+function antiRedirect(aElement, realUrl, options = {
+    debug: "production" !== "production"
+}) {
     if (!realUrl || aElement.href === realUrl) {
         return;
     }
@@ -2259,10 +1912,10 @@ exports.antiRedirect = antiRedirect;
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 5 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-/* WEBPACK VAR INJECTION */(function(global) {/**
+/**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
  * Copyright jQuery Foundation and other contributors <https://jquery.org/>
@@ -2296,7 +1949,7 @@ var reIsOctal = /^0o[0-7]+$/i;
 var freeParseInt = parseInt;
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -2702,13 +2355,12 @@ function toNumber(value) {
 
 module.exports = throttle;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 6 */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-/* WEBPACK VAR INJECTION */(function(global) {/**
+/**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
  * Copyright jQuery Foundation and other contributors <https://jquery.org/>
@@ -2742,7 +2394,7 @@ var reIsOctal = /^0o[0-7]+$/i;
 var freeParseInt = parseInt;
 
 /** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -3086,103 +2738,101 @@ function toNumber(value) {
 
 module.exports = debounce;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 7 */
+/***/ (function(module) {
 
 /*!
  * in-view 0.6.1 - Get notified when a DOM element enters or exits the viewport.
  * Copyright (c) 2016 Cam Wiegert <cam@camwiegert.com> - https://camwiegert.github.io/in-view
  * License: MIT
  */
-!function(t,e){ true?module.exports=e():undefined}(this,function(){return function(t){function e(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return t[r].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}var i=n(2),o=r(i);t.exports=o["default"]},function(t,e){function n(t){var e=typeof t;return null!=t&&("object"==e||"function"==e)}t.exports=n},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0});var i=n(9),o=r(i),u=n(3),f=r(u),s=n(4),c=function(){if("undefined"!=typeof window){var t=100,e=["scroll","resize","load"],n={history:[]},r={offset:{},threshold:0,test:s.inViewport},i=(0,o["default"])(function(){n.history.forEach(function(t){n[t].check()})},t);e.forEach(function(t){return addEventListener(t,i)}),window.MutationObserver&&addEventListener("DOMContentLoaded",function(){new MutationObserver(i).observe(document.body,{attributes:!0,childList:!0,subtree:!0})});var u=function(t){if("string"==typeof t){var e=[].slice.call(document.querySelectorAll(t));return n.history.indexOf(t)>-1?n[t].elements=e:(n[t]=(0,f["default"])(e,r),n.history.push(t)),n[t]}};return u.offset=function(t){if(void 0===t)return r.offset;var e=function(t){return"number"==typeof t};return["top","right","bottom","left"].forEach(e(t)?function(e){return r.offset[e]=t}:function(n){return e(t[n])?r.offset[n]=t[n]:null}),r.offset},u.threshold=function(t){return"number"==typeof t&&t>=0&&t<=1?r.threshold=t:r.threshold},u.test=function(t){return"function"==typeof t?r.test=t:r.test},u.is=function(t){return r.test(t,r)},u.offset(0),u}};e["default"]=c()},function(t,e){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),i=function(){function t(e,r){n(this,t),this.options=r,this.elements=e,this.current=[],this.handlers={enter:[],exit:[]},this.singles={enter:[],exit:[]}}return r(t,[{key:"check",value:function(){var t=this;return this.elements.forEach(function(e){var n=t.options.test(e,t.options),r=t.current.indexOf(e),i=r>-1,o=n&&!i,u=!n&&i;o&&(t.current.push(e),t.emit("enter",e)),u&&(t.current.splice(r,1),t.emit("exit",e))}),this}},{key:"on",value:function(t,e){return this.handlers[t].push(e),this}},{key:"once",value:function(t,e){return this.singles[t].unshift(e),this}},{key:"emit",value:function(t,e){for(;this.singles[t].length;)this.singles[t].pop()(e);for(var n=this.handlers[t].length;--n>-1;)this.handlers[t][n](e);return this}}]),t}();e["default"]=function(t,e){return new i(t,e)}},function(t,e){"use strict";function n(t,e){var n=t.getBoundingClientRect(),r=n.top,i=n.right,o=n.bottom,u=n.left,f=n.width,s=n.height,c={t:o,r:window.innerWidth-u,b:window.innerHeight-r,l:i},a={x:e.threshold*f,y:e.threshold*s};return c.t>e.offset.top+a.y&&c.r>e.offset.right+a.x&&c.b>e.offset.bottom+a.y&&c.l>e.offset.left+a.x}Object.defineProperty(e,"__esModule",{value:!0}),e.inViewport=n},function(t,e){(function(e){var n="object"==typeof e&&e&&e.Object===Object&&e;t.exports=n}).call(e,function(){return this}())},function(t,e,n){var r=n(5),i="object"==typeof self&&self&&self.Object===Object&&self,o=r||i||Function("return this")();t.exports=o},function(t,e,n){function r(t,e,n){function r(e){var n=x,r=m;return x=m=void 0,E=e,w=t.apply(r,n)}function a(t){return E=t,j=setTimeout(h,e),M?r(t):w}function l(t){var n=t-O,r=t-E,i=e-n;return _?c(i,g-r):i}function d(t){var n=t-O,r=t-E;return void 0===O||n>=e||n<0||_&&r>=g}function h(){var t=o();return d(t)?p(t):void(j=setTimeout(h,l(t)))}function p(t){return j=void 0,T&&x?r(t):(x=m=void 0,w)}function v(){void 0!==j&&clearTimeout(j),E=0,x=O=m=j=void 0}function y(){return void 0===j?w:p(o())}function b(){var t=o(),n=d(t);if(x=arguments,m=this,O=t,n){if(void 0===j)return a(O);if(_)return j=setTimeout(h,e),r(O)}return void 0===j&&(j=setTimeout(h,e)),w}var x,m,g,w,j,O,E=0,M=!1,_=!1,T=!0;if("function"!=typeof t)throw new TypeError(f);return e=u(e)||0,i(n)&&(M=!!n.leading,_="maxWait"in n,g=_?s(u(n.maxWait)||0,e):g,T="trailing"in n?!!n.trailing:T),b.cancel=v,b.flush=y,b}var i=n(1),o=n(8),u=n(10),f="Expected a function",s=Math.max,c=Math.min;t.exports=r},function(t,e,n){var r=n(6),i=function(){return r.Date.now()};t.exports=i},function(t,e,n){function r(t,e,n){var r=!0,f=!0;if("function"!=typeof t)throw new TypeError(u);return o(n)&&(r="leading"in n?!!n.leading:r,f="trailing"in n?!!n.trailing:f),i(t,e,{leading:r,maxWait:e,trailing:f})}var i=n(7),o=n(1),u="Expected a function";t.exports=r},function(t,e){function n(t){return t}t.exports=n}])});
+!function(t,e){ true?module.exports=e():0}(this,function(){return function(t){function e(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return t[r].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var n={};return e.m=t,e.c=n,e.p="",e(0)}([function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}var i=n(2),o=r(i);t.exports=o["default"]},function(t,e){function n(t){var e=typeof t;return null!=t&&("object"==e||"function"==e)}t.exports=n},function(t,e,n){"use strict";function r(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0});var i=n(9),o=r(i),u=n(3),f=r(u),s=n(4),c=function(){if("undefined"!=typeof window){var t=100,e=["scroll","resize","load"],n={history:[]},r={offset:{},threshold:0,test:s.inViewport},i=(0,o["default"])(function(){n.history.forEach(function(t){n[t].check()})},t);e.forEach(function(t){return addEventListener(t,i)}),window.MutationObserver&&addEventListener("DOMContentLoaded",function(){new MutationObserver(i).observe(document.body,{attributes:!0,childList:!0,subtree:!0})});var u=function(t){if("string"==typeof t){var e=[].slice.call(document.querySelectorAll(t));return n.history.indexOf(t)>-1?n[t].elements=e:(n[t]=(0,f["default"])(e,r),n.history.push(t)),n[t]}};return u.offset=function(t){if(void 0===t)return r.offset;var e=function(t){return"number"==typeof t};return["top","right","bottom","left"].forEach(e(t)?function(e){return r.offset[e]=t}:function(n){return e(t[n])?r.offset[n]=t[n]:null}),r.offset},u.threshold=function(t){return"number"==typeof t&&t>=0&&t<=1?r.threshold=t:r.threshold},u.test=function(t){return"function"==typeof t?r.test=t:r.test},u.is=function(t){return r.test(t,r)},u.offset(0),u}};e["default"]=c()},function(t,e){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var r=function(){function t(t,e){for(var n=0;n<e.length;n++){var r=e[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(t,r.key,r)}}return function(e,n,r){return n&&t(e.prototype,n),r&&t(e,r),e}}(),i=function(){function t(e,r){n(this,t),this.options=r,this.elements=e,this.current=[],this.handlers={enter:[],exit:[]},this.singles={enter:[],exit:[]}}return r(t,[{key:"check",value:function(){var t=this;return this.elements.forEach(function(e){var n=t.options.test(e,t.options),r=t.current.indexOf(e),i=r>-1,o=n&&!i,u=!n&&i;o&&(t.current.push(e),t.emit("enter",e)),u&&(t.current.splice(r,1),t.emit("exit",e))}),this}},{key:"on",value:function(t,e){return this.handlers[t].push(e),this}},{key:"once",value:function(t,e){return this.singles[t].unshift(e),this}},{key:"emit",value:function(t,e){for(;this.singles[t].length;)this.singles[t].pop()(e);for(var n=this.handlers[t].length;--n>-1;)this.handlers[t][n](e);return this}}]),t}();e["default"]=function(t,e){return new i(t,e)}},function(t,e){"use strict";function n(t,e){var n=t.getBoundingClientRect(),r=n.top,i=n.right,o=n.bottom,u=n.left,f=n.width,s=n.height,c={t:o,r:window.innerWidth-u,b:window.innerHeight-r,l:i},a={x:e.threshold*f,y:e.threshold*s};return c.t>e.offset.top+a.y&&c.r>e.offset.right+a.x&&c.b>e.offset.bottom+a.y&&c.l>e.offset.left+a.x}Object.defineProperty(e,"__esModule",{value:!0}),e.inViewport=n},function(t,e){(function(e){var n="object"==typeof e&&e&&e.Object===Object&&e;t.exports=n}).call(e,function(){return this}())},function(t,e,n){var r=n(5),i="object"==typeof self&&self&&self.Object===Object&&self,o=r||i||Function("return this")();t.exports=o},function(t,e,n){function r(t,e,n){function r(e){var n=x,r=m;return x=m=void 0,E=e,w=t.apply(r,n)}function a(t){return E=t,j=setTimeout(h,e),M?r(t):w}function l(t){var n=t-O,r=t-E,i=e-n;return _?c(i,g-r):i}function d(t){var n=t-O,r=t-E;return void 0===O||n>=e||n<0||_&&r>=g}function h(){var t=o();return d(t)?p(t):void(j=setTimeout(h,l(t)))}function p(t){return j=void 0,T&&x?r(t):(x=m=void 0,w)}function v(){void 0!==j&&clearTimeout(j),E=0,x=O=m=j=void 0}function y(){return void 0===j?w:p(o())}function b(){var t=o(),n=d(t);if(x=arguments,m=this,O=t,n){if(void 0===j)return a(O);if(_)return j=setTimeout(h,e),r(O)}return void 0===j&&(j=setTimeout(h,e)),w}var x,m,g,w,j,O,E=0,M=!1,_=!1,T=!0;if("function"!=typeof t)throw new TypeError(f);return e=u(e)||0,i(n)&&(M=!!n.leading,_="maxWait"in n,g=_?s(u(n.maxWait)||0,e):g,T="trailing"in n?!!n.trailing:T),b.cancel=v,b.flush=y,b}var i=n(1),o=n(8),u=n(10),f="Expected a function",s=Math.max,c=Math.min;t.exports=r},function(t,e,n){var r=n(6),i=function(){return r.Date.now()};t.exports=i},function(t,e,n){function r(t,e,n){var r=!0,f=!0;if("function"!=typeof t)throw new TypeError(u);return o(n)&&(r="leading"in n?!!n.leading:r,f="trailing"in n?!!n.trailing:f),i(t,e,{leading:r,maxWait:e,trailing:f})}var i=n(7),o=n(1),u="Expected a function";t.exports=r},function(t,e){function n(t){return t}t.exports=n}])});
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 8 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GoogleProvider = void 0;
-var GoogleProvider = /** @class */ (function () {
-    function GoogleProvider() {
+const utils_1 = __webpack_require__(4);
+class GoogleProvider {
+    constructor() {
         this.test = true;
     }
-    GoogleProvider.prototype.resolve = function (aElement) {
-        // 移除追踪
-        if (aElement.getAttribute("ping")) {
-            aElement.removeAttribute("ping");
+    resolve(aElement) {
+        if (aElement.getAttribute("onmousedown")) {
+            aElement.removeAttribute("onmousedown");
         }
-    };
-    return GoogleProvider;
-}());
+        if (aElement.getAttribute("data-href")) {
+            const realUrl = aElement.getAttribute("data-href");
+            utils_1.antiRedirect(aElement, realUrl);
+        }
+    }
+}
 exports.GoogleProvider = GoogleProvider;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 9 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GmailProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var GmailProvider = /** @class */ (function () {
-    function GmailProvider() {
+const utils_1 = __webpack_require__(4);
+class GmailProvider {
+    constructor() {
         this.test = true;
         this.REDIRECT_PROPERTY = "data-saferedirecturl";
     }
-    GmailProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         // 移除这个属性，那么 a 链接就不会跳转
         // FIXME: gmail 是多层 iframe 嵌套
         if (aElement.getAttribute(this.REDIRECT_PROPERTY)) {
             aElement.removeAttribute(this.REDIRECT_PROPERTY);
             utils_1.antiRedirect(aElement, aElement.href);
         }
-    };
-    return GmailProvider;
-}());
+    }
+}
 exports.GmailProvider = GmailProvider;
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 10 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GoogleDocsProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var GoogleDocsProvider = /** @class */ (function () {
-    function GoogleDocsProvider() {
+const utils_1 = __webpack_require__(4);
+class GoogleDocsProvider {
+    constructor() {
         this.test = /www\.google\.com\/url\?q=(.*)/;
     }
-    GoogleDocsProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("q"));
-    };
-    return GoogleDocsProvider;
-}());
+    }
+}
 exports.GoogleDocsProvider = GoogleDocsProvider;
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 11 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GooglePlayProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var GooglePlayProvider = /** @class */ (function () {
-    function GooglePlayProvider() {
-    }
-    GooglePlayProvider.prototype.test = function (aElement) {
+const utils_1 = __webpack_require__(4);
+class GooglePlayProvider {
+    test(aElement) {
         if (/google\.com\/url\?q=(.*)/.test(aElement.href)) {
             return true;
         }
@@ -3190,13 +2840,12 @@ var GooglePlayProvider = /** @class */ (function () {
             return true;
         }
         return false;
-    };
-    GooglePlayProvider.prototype.resolve = function (aElement) {
+    }
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("q"));
         // 移除开发者栏目下的重定向
-        var eles = [].slice.call(document.querySelectorAll("a.hrTbp"));
-        for (var _i = 0, eles_1 = eles; _i < eles_1.length; _i++) {
-            var ele = eles_1[_i];
+        const eles = [].slice.call(document.querySelectorAll("a.hrTbp"));
+        for (const ele of eles) {
             if (!ele.href) {
                 continue;
             }
@@ -3205,40 +2854,38 @@ var GooglePlayProvider = /** @class */ (function () {
             }
             ele.setAttribute(utils_1.Marker.RedirectStatusDone, ele.href);
             ele.setAttribute("target", "_blank");
-            ele.addEventListener("click", function (event) {
+            ele.addEventListener("click", event => {
                 event.stopPropagation();
             }, true);
         }
-    };
-    return GooglePlayProvider;
-}());
+    }
+}
 exports.GooglePlayProvider = GooglePlayProvider;
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 12 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.YoutubeProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var YoutubeProvider = /** @class */ (function () {
-    function YoutubeProvider() {
+const utils_1 = __webpack_require__(4);
+class YoutubeProvider {
+    constructor() {
         this.test = /www\.youtube\.com\/redirect\?.{1,}/;
     }
-    YoutubeProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("q"));
-    };
-    return YoutubeProvider;
-}());
+    }
+}
 exports.YoutubeProvider = YoutubeProvider;
 
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 13 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3251,95 +2898,56 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SoGouProvider = void 0;
-var gm_http_1 = __webpack_require__(4);
-var utils_1 = __webpack_require__(6);
-var SoGouProvider = /** @class */ (function () {
-    function SoGouProvider() {
+const gm_http_1 = __webpack_require__(2);
+const utils_1 = __webpack_require__(4);
+class SoGouProvider {
+    constructor() {
         this.test = /www\.sogou\.com\/link\?url=/;
     }
-    SoGouProvider.prototype.resolve = function (aElement) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, finalUrl, matcher, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        if (!(utils_1.getRedirect(aElement) <= 2 && this.test.test(aElement.href))) return [3 /*break*/, 2];
-                        utils_1.increaseRedirect(aElement);
-                        return [4 /*yield*/, gm_http_1.default.request({
-                                url: aElement.href,
-                                method: "HEAD",
-                                anonymous: true
-                            })];
-                    case 1:
-                        res = _a.sent();
-                        utils_1.decreaseRedirect(aElement);
-                        finalUrl = res.finalUrl;
-                        if (finalUrl && !this.test.test(finalUrl)) {
+    resolve(aElement) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (utils_1.getRedirect(aElement) <= 2 && this.test.test(aElement.href)) {
+                    utils_1.increaseRedirect(aElement);
+                    const res = yield gm_http_1.default.request({
+                        url: aElement.href,
+                        method: "GET",
+                        anonymous: true
+                    });
+                    utils_1.decreaseRedirect(aElement);
+                    const finalUrl = res.finalUrl;
+                    if (finalUrl && !this.test.test(finalUrl)) {
+                        utils_1.antiRedirect(aElement, res.finalUrl);
+                    }
+                    else {
+                        const matcher = res.responseText.match(/URL=['"]([^'"]+)['"]/);
+                        if (matcher && matcher[1]) {
                             utils_1.antiRedirect(aElement, res.finalUrl);
                         }
-                        else {
-                            matcher = res.responseText.match(/URL=['"]([^'"]+)['"]/);
-                            if (matcher && matcher[1]) {
-                                utils_1.antiRedirect(aElement, res.finalUrl);
-                            }
-                        }
-                        _a.label = 2;
-                    case 2: return [3 /*break*/, 4];
-                    case 3:
-                        err_1 = _a.sent();
-                        utils_1.decreaseRedirect(aElement);
-                        console.error(err_1);
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/];
+                    }
                 }
-            });
+            }
+            catch (err) {
+                utils_1.decreaseRedirect(aElement);
+                console.error(err);
+            }
         });
-    };
-    SoGouProvider.prototype.parsePage = function (res) {
-        var responseText = res.responseText.replace(/(src=[^>]*|link=[^>])/g, "");
-        var html = document.createElement("html");
+    }
+    parsePage(res) {
+        const responseText = res.responseText.replace(/(src=[^>]*|link=[^>])/g, "");
+        const html = document.createElement("html");
         html.innerHTML = responseText;
         // let selector = '#main .results div.vrwrap>h3';
         // let selector = '#main .results h3>a';
-        var selector = '#main .results a[href*="www.sogou.com/link?url="]';
-        var remotes = [].slice.call(html.querySelectorAll("#main .results a[href]"));
-        var locals = [].slice.call(document.querySelectorAll(selector));
-        for (var _i = 0, locals_1 = locals; _i < locals_1.length; _i++) {
-            var localEle = locals_1[_i];
-            for (var _a = 0, remotes_1 = remotes; _a < remotes_1.length; _a++) {
-                var remoteEle = remotes_1[_a];
-                var localText = utils_1.getText(localEle);
-                var remoteText = utils_1.getText(remoteEle);
+        const selector = '#main .results a[href*="www.sogou.com/link?url="]';
+        const remotes = [].slice.call(html.querySelectorAll("#main .results a[href]"));
+        const locals = [].slice.call(document.querySelectorAll(selector));
+        for (const localEle of locals) {
+            for (const remoteEle of remotes) {
+                let localText = utils_1.getText(localEle);
+                let remoteText = utils_1.getText(remoteEle);
                 // 通用按钮，例如【点击下载】
                 if (localEle.classList.contains("str-public-btn")) {
                     localText = utils_1.getText(localEle.parentNode);
@@ -3356,39 +2964,35 @@ var SoGouProvider = /** @class */ (function () {
                 utils_1.antiRedirect(localEle, remoteEle.href);
             }
         }
-    };
-    SoGouProvider.prototype.onInit = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var query, url;
-            var _this = this;
-            return __generator(this, function (_a) {
-                if (!/www\.sogou\.com\/web/.test(window.top.location.href)) {
-                    return [2 /*return*/];
-                }
-                query = utils_1.queryParser(window.top.location.search);
-                url = location.protocol
-                    .replace(/:$/, "")
-                    .replace("s", "") + "://" + (location.host + location.pathname + query);
-                gm_http_1.default
-                    .get(url)
-                    .then(function (res) {
-                    _this.parsePage(res);
-                })
-                    .catch(function (err) {
-                    console.error(err);
-                });
-                return [2 /*return*/, this];
+    }
+    onInit() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!/www\.sogou\.com\/web/.test(window.top.location.href)) {
+                return;
+            }
+            const query = utils_1.queryParser(window.top.location.search);
+            // 搜索使用http搜索，得到的是直接链接
+            const url = `${location.protocol
+                .replace(/:$/, "")
+                .replace("s", "")}://${location.host + location.pathname + query}`;
+            gm_http_1.default
+                .get(url)
+                .then((res) => {
+                this.parsePage(res);
+            })
+                .catch(err => {
+                console.error(err);
             });
+            return this;
         });
-    };
-    return SoGouProvider;
-}());
+    }
+}
 exports.SoGouProvider = SoGouProvider;
 
 
 /***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 14 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3401,163 +3005,124 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BaiduProvider = void 0;
-var gm_http_1 = __webpack_require__(4);
-var utils_1 = __webpack_require__(6);
-var BaiduProvider = /** @class */ (function () {
-    function BaiduProvider() {
+const gm_http_1 = __webpack_require__(2);
+const utils_1 = __webpack_require__(4);
+class BaiduProvider {
+    constructor() {
         this.test = /www\.baidu\.com\/link\?url=/;
     }
-    BaiduProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         if (utils_1.getRedirect(aElement) <= 2 && this.test.test(aElement.href)) {
             utils_1.increaseRedirect(aElement);
             this.handlerOneElement(aElement)
-                .then(function (res) {
+                .then(res => {
                 utils_1.decreaseRedirect(aElement);
             })
-                .catch(function (err) {
+                .catch(err => {
                 utils_1.decreaseRedirect(aElement);
             });
         }
-    };
-    BaiduProvider.prototype.handlerOneElement = function (aElement) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, gm_http_1.default.request({
-                                url: aElement.href,
-                                method: "HEAD",
-                                anonymous: true
-                            })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.finalUrl) {
-                            utils_1.antiRedirect(aElement, res.finalUrl);
-                        }
-                        return [2 /*return*/, res];
-                    case 2:
-                        err_1 = _a.sent();
-                        console.error(err_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+    }
+    handlerOneElement(aElement) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const res = yield gm_http_1.default.request({
+                    url: aElement.href,
+                    method: "GET",
+                    anonymous: true
+                });
+                if (res.finalUrl) {
+                    utils_1.antiRedirect(aElement, res.finalUrl);
                 }
-            });
+                return res;
+            }
+            catch (err) {
+                console.error(err);
+            }
         });
-    };
-    return BaiduProvider;
-}());
+    }
+}
 exports.BaiduProvider = BaiduProvider;
 
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 15 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BaiduVideoProvider = void 0;
-var gm_http_1 = __webpack_require__(4);
-var utils_1 = __webpack_require__(6);
-var BaiduVideoProvider = /** @class */ (function () {
-    function BaiduVideoProvider() {
+const gm_http_1 = __webpack_require__(2);
+const utils_1 = __webpack_require__(4);
+class BaiduVideoProvider {
+    constructor() {
         this.test = /v\.baidu\.com\/link\?url=/;
     }
-    BaiduVideoProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         gm_http_1.default
             .request({
             url: aElement.href,
-            method: "HEAD",
+            method: "GET",
             anonymous: true
         })
-            .then(function (res) {
+            .then((res) => {
             if (res.finalUrl) {
                 utils_1.antiRedirect(aElement, res.finalUrl);
             }
         })
-            .catch(function (err) {
+            .catch(err => {
             console.error(err);
         });
-    };
-    return BaiduVideoProvider;
-}());
+    }
+}
 exports.BaiduVideoProvider = BaiduVideoProvider;
 
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 16 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.BaiduXueshuProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var BaiduXueshuProvider = /** @class */ (function () {
-    function BaiduXueshuProvider() {
+const utils_1 = __webpack_require__(4);
+class BaiduXueshuProvider {
+    constructor() {
         this.test = /xueshu\.baidu\.com\/s?\?(.*)/; // 此处无用
     }
-    BaiduXueshuProvider.prototype.resolve = function (aElement) {
-        var realHref = aElement.getAttribute("data-link") || aElement.getAttribute("data-url");
+    resolve(aElement) {
+        const realHref = aElement.getAttribute("data-link") || aElement.getAttribute("data-url");
         if (realHref) {
             utils_1.antiRedirect(aElement, decodeURIComponent(realHref));
         }
-    };
-    return BaiduXueshuProvider;
-}());
+    }
+}
 exports.BaiduXueshuProvider = BaiduXueshuProvider;
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 17 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TiebaProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var TiebaProvider = /** @class */ (function () {
-    function TiebaProvider() {
+const utils_1 = __webpack_require__(4);
+class TiebaProvider {
+    constructor() {
         this.test = /jump\d*\.bdimg\.com/;
     }
-    TiebaProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         if (!this.test.test(aElement.href)) {
             return;
         }
-        var url = "";
-        var text = aElement.innerText || aElement.textContent || "";
+        let url = "";
+        const text = aElement.innerText || aElement.textContent || "";
         try {
             url = decodeURIComponent(text);
         }
@@ -3567,197 +3132,189 @@ var TiebaProvider = /** @class */ (function () {
         if (url) {
             utils_1.antiRedirect(aElement, url);
         }
-    };
-    return TiebaProvider;
-}());
+    }
+}
 exports.TiebaProvider = TiebaProvider;
 
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 18 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ZhihuProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var ZhihuProvider = /** @class */ (function () {
-    function ZhihuProvider() {
+const utils_1 = __webpack_require__(4);
+class ZhihuProvider {
+    constructor() {
         this.test = /zhihu\.com\/\?target=(.*)/;
     }
-    ZhihuProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("target"));
-    };
-    return ZhihuProvider;
-}());
+    }
+}
 exports.ZhihuProvider = ZhihuProvider;
 
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 19 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ZhihuZhuanlanProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var ZhihuZhuanlanProvider = /** @class */ (function () {
-    function ZhihuZhuanlanProvider() {
+const utils_1 = __webpack_require__(4);
+class ZhihuZhuanlanProvider {
+    constructor() {
         this.test = /link\.zhihu\.com\/\?target=(.*)/;
     }
-    ZhihuZhuanlanProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("target"));
-    };
-    return ZhihuZhuanlanProvider;
-}());
+    }
+}
 exports.ZhihuZhuanlanProvider = ZhihuZhuanlanProvider;
 
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 20 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ZhihuDailyProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var ZhihuDailyProvider = /** @class */ (function () {
-    function ZhihuDailyProvider() {
+const utils_1 = __webpack_require__(4);
+class ZhihuDailyProvider {
+    constructor() {
         this.test = /zhihu\.com\/\?target=(.*)/;
     }
-    ZhihuDailyProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("target"));
-    };
-    return ZhihuDailyProvider;
-}());
+    }
+}
 exports.ZhihuDailyProvider = ZhihuDailyProvider;
 
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 21 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SoProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var SoProvider = /** @class */ (function () {
-    function SoProvider() {
+const utils_1 = __webpack_require__(4);
+class SoProvider {
+    constructor() {
         this.test = /so\.com\/link\?(.*)/;
     }
-    SoProvider.prototype.resolve = function (aElement) {
-        var url = aElement.getAttribute("data-mdurl") || aElement.getAttribute("e-landurl");
+    resolve(aElement) {
+        const url = aElement.getAttribute("data-mdurl") || aElement.getAttribute("e-landurl");
         if (url) {
             utils_1.antiRedirect(aElement, url);
         }
         // remove track
         aElement.removeAttribute("e_href");
         aElement.removeAttribute("data-res");
-    };
-    return SoProvider;
-}());
+    }
+}
 exports.SoProvider = SoProvider;
 
 
 /***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 22 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WeboProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var WeboProvider = /** @class */ (function () {
-    function WeboProvider() {
+const utils_1 = __webpack_require__(4);
+class WeboProvider {
+    constructor() {
         this.test = /t\.cn\/\w+/;
     }
-    WeboProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         if (!this.test.test(aElement.href) ||
             !/^https?:\/\//.test(aElement.title)) {
             return;
         }
-        var url = decodeURIComponent(aElement.title);
+        const url = decodeURIComponent(aElement.title);
         if (url) {
             aElement.href = url;
             utils_1.antiRedirect(aElement, url);
         }
-    };
-    return WeboProvider;
-}());
+    }
+}
 exports.WeboProvider = WeboProvider;
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 23 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TwitterProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var TwitterProvider = /** @class */ (function () {
-    function TwitterProvider() {
+const utils_1 = __webpack_require__(4);
+class TwitterProvider {
+    constructor() {
         this.test = /t\.co\/\w+/;
     }
-    TwitterProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         if (!this.test.test(aElement.href) ||
             !/^https?:\/\//.test(aElement.title)) {
             return;
         }
-        var url = decodeURIComponent(aElement.title);
+        const url = decodeURIComponent(aElement.title);
         if (url) {
             utils_1.antiRedirect(aElement, url);
         }
-    };
-    return TwitterProvider;
-}());
+    }
+}
 exports.TwitterProvider = TwitterProvider;
 
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 24 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.JuejinProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var JuejinProvider = /** @class */ (function () {
-    function JuejinProvider() {
+const utils_1 = __webpack_require__(4);
+class JuejinProvider {
+    constructor() {
         this.test = /link\.juejin\.im\/\?target=(.*)/;
     }
-    JuejinProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("target"));
-    };
-    return JuejinProvider;
-}());
+    }
+}
 exports.JuejinProvider = JuejinProvider;
 
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 25 */
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.QQMailProvider = void 0;
-var QQMailProvider = /** @class */ (function () {
-    function QQMailProvider() {
+class QQMailProvider {
+    constructor() {
         this.test = true;
     }
-    QQMailProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         this.container = document.querySelector("#contentDiv");
         if (this.container && this.container.contains(aElement)) {
             if (aElement.onclick) {
-                aElement.onclick = function (e) {
+                aElement.onclick = (e) => {
                     // 阻止事件冒泡, 因为上层元素绑定的click事件会重定向
                     if (e.stopPropagation) {
                         e.stopPropagation();
@@ -3765,107 +3322,102 @@ var QQMailProvider = /** @class */ (function () {
                 };
             }
         }
-    };
-    return QQMailProvider;
-}());
+    }
+}
 exports.QQMailProvider = QQMailProvider;
 
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 26 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MozillaProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var MozillaProvider = /** @class */ (function () {
-    function MozillaProvider() {
+const utils_1 = __webpack_require__(4);
+class MozillaProvider {
+    constructor() {
         this.test = /outgoing\.prod\.mozaws\.net\/v\d\/\w+\/(.*)/;
     }
-    MozillaProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, utils_1.matchLinkFromUrl(aElement, this.test));
-    };
-    return MozillaProvider;
-}());
+    }
+}
 exports.MozillaProvider = MozillaProvider;
 
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 27 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.JianShuProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var JianShuProvider = /** @class */ (function () {
-    function JianShuProvider() {
-        this.test = function (aElement) {
-            var isLink1 = /links\.jianshu\.com\/go/.test(aElement.href);
-            var isLink2 = /link\.jianshu\.com(\/)?\?t=/.test(aElement.href);
+const utils_1 = __webpack_require__(4);
+class JianShuProvider {
+    constructor() {
+        this.test = (aElement) => {
+            const isLink1 = /links\.jianshu\.com\/go/.test(aElement.href);
+            const isLink2 = /link\.jianshu\.com(\/)?\?t=/.test(aElement.href);
             if (isLink1 || isLink2) {
                 return true;
             }
             return false;
         };
     }
-    JianShuProvider.prototype.resolve = function (aElement) {
-        var search = new URL(aElement.href).searchParams;
+    resolve(aElement) {
+        const search = new URL(aElement.href).searchParams;
         utils_1.antiRedirect(aElement, search.get('to') || search.get('t'));
-    };
-    return JianShuProvider;
-}());
+    }
+}
 exports.JianShuProvider = JianShuProvider;
 
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 28 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DouBanProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var DouBanProvider = /** @class */ (function () {
-    function DouBanProvider() {
+const utils_1 = __webpack_require__(4);
+class DouBanProvider {
+    constructor() {
         this.test = /douban\.com\/link2\/?\?url=(.*)/;
     }
-    DouBanProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("url"));
-    };
-    return DouBanProvider;
-}());
+    }
+}
 exports.DouBanProvider = DouBanProvider;
 
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 29 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PocketProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var PocketProvider = /** @class */ (function () {
-    function PocketProvider() {
+const utils_1 = __webpack_require__(4);
+class PocketProvider {
+    constructor() {
         this.test = /getpocket\.com\/redirect\?url=(.*)/;
     }
-    PocketProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("url"));
-    };
-    return PocketProvider;
-}());
+    }
+}
 exports.PocketProvider = PocketProvider;
 
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 30 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3878,126 +3430,151 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DogeDogeProvider = void 0;
-var gm_http_1 = __webpack_require__(4);
-var utils_1 = __webpack_require__(6);
-var DogeDogeProvider = /** @class */ (function () {
-    function DogeDogeProvider() {
+const gm_http_1 = __webpack_require__(2);
+const utils_1 = __webpack_require__(4);
+class DogeDogeProvider {
+    constructor() {
         this.test = /www\.dogedoge\.com\/rd\/.{1,}/;
     }
-    DogeDogeProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         if (utils_1.getRedirect(aElement) <= 2 && this.test.test(aElement.href)) {
             utils_1.increaseRedirect(aElement);
             this.handlerOneElement(aElement)
-                .then(function (res) {
+                .then(res => {
                 utils_1.decreaseRedirect(aElement);
             })
-                .catch(function (err) {
+                .catch(err => {
                 utils_1.decreaseRedirect(aElement);
             });
         }
-    };
-    DogeDogeProvider.prototype.handlerOneElement = function (aElement) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res, err_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, gm_http_1.default.request({
-                                url: aElement.href,
-                                method: "HEAD",
-                                anonymous: true
-                            })];
-                    case 1:
-                        res = _a.sent();
-                        if (res.finalUrl) {
-                            utils_1.antiRedirect(aElement, res.finalUrl);
-                        }
-                        return [2 /*return*/, res];
-                    case 2:
-                        err_1 = _a.sent();
-                        console.error(err_1);
-                        return [3 /*break*/, 3];
-                    case 3: return [2 /*return*/];
+    }
+    handlerOneElement(aElement) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const res = yield gm_http_1.default.request({
+                    url: aElement.href,
+                    method: "GET",
+                    anonymous: true
+                });
+                if (res.finalUrl) {
+                    utils_1.antiRedirect(aElement, res.finalUrl);
                 }
-            });
+                return res;
+            }
+            catch (err) {
+                console.error(err);
+            }
         });
-    };
-    return DogeDogeProvider;
-}());
+    }
+}
 exports.DogeDogeProvider = DogeDogeProvider;
 
 
 /***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 31 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RuyoProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var RuyoProvider = /** @class */ (function () {
-    function RuyoProvider() {
+const utils_1 = __webpack_require__(4);
+class RuyoProvider {
+    constructor() {
         this.test = /\/[^\?]*\?u=(.*)/;
     }
-    RuyoProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("u"));
-    };
-    return RuyoProvider;
-}());
+    }
+}
 exports.RuyoProvider = RuyoProvider;
 
 
 /***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 32 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SteamProvider = void 0;
-var utils_1 = __webpack_require__(6);
-var SteamProvider = /** @class */ (function () {
-    function SteamProvider() {
+const utils_1 = __webpack_require__(4);
+class SteamProvider {
+    constructor() {
         this.test = /steamcommunity\.com\/linkfilter\/\?url=(.*)/;
     }
-    SteamProvider.prototype.resolve = function (aElement) {
+    resolve(aElement) {
         utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get('url'));
-    };
-    return SteamProvider;
-}());
+    }
+}
 exports.SteamProvider = SteamProvider;
 
 
+/***/ }),
+/* 33 */
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MiJiProvider = void 0;
+const utils_1 = __webpack_require__(4);
+class MiJiProvider {
+    constructor() {
+        this.test = /mijisou\.com\/url_proxy\?proxyurl=(.*)/;
+    }
+    resolve(aElement) {
+        utils_1.antiRedirect(aElement, new URL(aElement.href).searchParams.get("proxyurl"));
+    }
+}
+exports.MiJiProvider = MiJiProvider;
+
+
 /***/ })
-/******/ ]);
+/******/ 	]);
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	__webpack_require__(0);
+/******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ })()
+;
